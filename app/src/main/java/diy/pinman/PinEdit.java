@@ -216,6 +216,11 @@ public class PinEdit extends EditText {
                 container.left, container.top, container.right, container.bottom,
                 rect.left, rect.top, rect.right, rect.bottom));
         Gravity.apply(this.gravity, boundsAll.width(), boundsAll.height(), container, rect);
+        Log.d(TAG, String.format("after container %d, %d - %d, %d rect %d, %d - %d, %d",
+                container.left, container.top, container.right, container.bottom,
+                rect.left, rect.top, rect.right, rect.bottom));
+
+        // for debug only, comment code below when release
         /*
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(1);
@@ -226,9 +231,6 @@ public class PinEdit extends EditText {
         paint.setColor(0xFF0000FF);
         canvas.drawRect(rect.left, rect.top, rect.right, rect.bottom, paint);
         */
-        Log.d(TAG, String.format("after container %d, %d - %d, %d rect %d, %d - %d, %d",
-                container.left, container.top, container.right, container.bottom,
-                rect.left, rect.top, rect.right, rect.bottom));
 
         // draws drawables
         paint.setColor(0xFF000000);
