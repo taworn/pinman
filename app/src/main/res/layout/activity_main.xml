@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:inputType="numberPassword"
-            android:padding="8dp"
+            android:padding="16dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             custom:charDrawable="@drawable/i"
             custom:typedCharDrawable="@drawable/you"

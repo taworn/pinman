@@ -68,6 +68,7 @@ public class PinEdit extends EditText {
     private Rect bounds;
     private Rect boundsAll;
     private Rect container;
+    private Rect rect;
 
     public PinEdit(Context context) {
         super(context);
@@ -94,8 +95,10 @@ public class PinEdit extends EditText {
         // gets display metrics for later used
         DisplayMetrics metrics = getResources().getDisplayMetrics();
 
-        // sets background and cursor
+        // we have to set background to 0x00000000, otherwise, it will show blue line
         setBackgroundColor(0x00000000);
+
+        // sets various parameters
         setCursorVisible(false);
         setCustomSelectionActionModeCallback(null);
         setFocusable(true);
@@ -194,76 +197,60 @@ public class PinEdit extends EditText {
 
         // pre-creates container for onDraw()
         container = new Rect();
+        rect = new Rect();
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
 
-        // draws rectangle, for debug only
-        /*
-        paint.setColor(0xFFFF0000);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(1);
-        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
-        */
+        Drawable background = getBackground();
+        if (background != null) {
+            background.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            background.draw(canvas);
+        }
+
+        container.set(getPaddingLeft(), getPaddingTop(), canvas.getWidth() - getPaddingRight(), canvas.getHeight() - getPaddingBottom());
+        rect.set(boundsAll);
 
         // offsets bounds all to match gravity
-        container.set(0, 0, canvas.getWidth(), canvas.getHeight());
-        Log.d(TAG, String.format("before container %d, %d - %d, %d boundsAll %d, %d - %d, %d",
+        Log.d(TAG, String.format("before container %d, %d - %d, %d rect %d, %d - %d, %d",
                 container.left, container.top, container.right, container.bottom,
-                boundsAll.left, boundsAll.top, boundsAll.right, boundsAll.bottom));
-        int offsetX = 0, offsetY = 0;
-        switch (gravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
-            case Gravity.LEFT:
-            case Gravity.START:
-                offsetX = getPaddingLeft();
-                break;
-            default:
-            case Gravity.CENTER_HORIZONTAL:
-                offsetX = (container.width() - boundsAll.width()) / 2;
-                break;
-            case Gravity.RIGHT:
-            case Gravity.END:
-                offsetX = container.width() - boundsAll.width() - getPaddingRight();
-                break;
-        }
-        switch (gravity & Gravity.VERTICAL_GRAVITY_MASK) {
-            case Gravity.TOP:
-                offsetY = getPaddingTop();
-                break;
-            default:
-            case Gravity.CENTER_VERTICAL:
-                offsetY = (container.height() - boundsAll.height()) / 2;
-                break;
-            case Gravity.BOTTOM:
-                offsetY = container.height() - boundsAll.height() - getPaddingBottom();
-                break;
-        }
-        boundsAll.offsetTo(offsetX, offsetY);
-        Log.d(TAG, String.format("after container %d, %d - %d, %d boundsAll %d, %d - %d, %d",
+                rect.left, rect.top, rect.right, rect.bottom));
+        Gravity.apply(this.gravity, boundsAll.width(), boundsAll.height(), container, rect);
+        /*
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(1);
+        paint.setColor(0xFFFF0000);
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
+        paint.setColor(0xFF00FF00);
+        canvas.drawRect(container.left, container.top, container.right, container.bottom, paint);
+        paint.setColor(0xFF0000FF);
+        canvas.drawRect(rect.left, rect.top, rect.right, rect.bottom, paint);
+        */
+        Log.d(TAG, String.format("after container %d, %d - %d, %d rect %d, %d - %d, %d",
                 container.left, container.top, container.right, container.bottom,
-                boundsAll.left, boundsAll.top, boundsAll.right, boundsAll.bottom));
+                rect.left, rect.top, rect.right, rect.bottom));
 
         // draws drawables
         paint.setColor(0xFF000000);
         paint.setStyle(Paint.Style.FILL);
         if (typedCharDrawable != null) {
-            int start = boundsAll.left;
+            int start = rect.left;
             int length = length();
             for (int i = 0; i < length; i++) {
                 int left = start + i * bounds.width();
-                typedCharDrawable.setBounds(left, boundsAll.top, left + bounds.width(), boundsAll.bottom);
+                typedCharDrawable.setBounds(left, rect.top, left + bounds.width(), rect.bottom);
                 typedCharDrawable.draw(canvas);
                 start += spaceBetweenChars;
             }
         }
         if (charDrawable != null) {
             int begin = typedCharDrawable != null ? length() : 0;
-            int start = boundsAll.left + begin * spaceBetweenChars;
+            int start = rect.left + begin * spaceBetweenChars;
             for (int i = begin; i < maxLength; i++) {
                 int left = start + i * bounds.width();
-                charDrawable.setBounds(left, boundsAll.top, left + bounds.width(), boundsAll.bottom);
+                charDrawable.setBounds(left, rect.top, left + bounds.width(), rect.bottom);
                 charDrawable.draw(canvas);
                 start += spaceBetweenChars;
             }
@@ -274,8 +261,8 @@ public class PinEdit extends EditText {
             paint.setColor(0xFF000000);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextAlign(Paint.Align.CENTER);
-            int x = boundsAll.left + bounds.width() / 2;
-            int y = boundsAll.top + bounds.height() / 2 + textHeight / 2;
+            int x = rect.left + bounds.width() / 2;
+            int y = rect.top + bounds.height() / 2 + textHeight / 2;
             int start = 0;
             String text = getText().toString();
             for (int i = 0; i < text.length(); i++) {
