@@ -31,16 +31,16 @@ And in Java, adds:
 
 	pinEdit = (PinEdit) findViewById(R.id.edit_pin);
 	pinEdit.setOnCompleteListener(new PinEdit.OnCompleteListener() {
-	    @Override
-	    public void onComplete(String text) {
-		if (text.equals("5555")) {
-		    Toast.makeText(getApplicationContext(), String.format("%s ^_^", text), Toast.LENGTH_SHORT).show();
+		@Override
+		public void onComplete(String text) {
+			if (text.equals("5555")) {
+				Toast.makeText(getApplicationContext(), String.format("%s ^_^", text), Toast.LENGTH_SHORT).show();
+			}
+			else {
+				Toast.makeText(getApplicationContext(), String.format("%s T_T", text), Toast.LENGTH_SHORT).show();
+				pinEdit.clear();
+			}
 		}
-		else {
-		    Toast.makeText(getApplicationContext(), String.format("%s T_T", text), Toast.LENGTH_SHORT).show();
-		    pinEdit.clear();
-		}
-	    }
 	});
 
 
