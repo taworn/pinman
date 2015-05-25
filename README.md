@@ -11,7 +11,8 @@ PinEdit (extends EditText) is adds width, height, character drawable and hiding 
 Limitations
 -----------
 
-PinEdit has bug in gravity.  Used getGravityFix() and setGravityFix() instead.
+- Used getGravityFix() and setGravityFix() instead getGravity() and setGravity().
+- PinEdit can used background color only, not drawable.
 
 
 Support
@@ -25,14 +26,14 @@ Usage
 
 Places PinEdit.java and PinEdit_attrs.xml in your project.  Adds layout file here:
 
-	<diy.pinman.PinEdit 		
-		android:id="@+id/edit_pin" 		
-		android:layout_width="match_parent" 		
-		android:layout_height="wrap_content" 		
-		android:gravity="center" 		
-		android:inputType="numberPassword" 		
-		android:textAppearance="?android:attr/textAppearanceLarge" 		
-		custom:charDrawable="@drawable/i" 		
+	<diy.pinman.PinEdit
+		android:id="@+id/edit_pin"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:inputType="numberPassword"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		custom:charDrawable="@drawable/i"
 		custom:typedCharDrawable="@drawable/you"/>
 
 And in Java, adds:
@@ -57,8 +58,8 @@ API
 
 **Gets and sets character width and height.**
 
-	custom:charWidth="..."
-	custom:charHeight="..."
+	custom:charWidth="...dp"
+	custom:charHeight="...dp"
 
 	int getCharWidth();
 	int getCharHeight();
@@ -78,23 +79,30 @@ API
 	Drawable getTypedCharDrawable();
 	void setTypedCharDrawable(Drawable value);
 
+**Gets and sets background color.**
+
+	custom:background="@color/..."
+
+	int getBackgroundColor();
+	void setBackgroundColor(int value);
+
 **Gets and sets space between characters.**
 
-	custom:spaceBetweenChars="..."
+	custom:spaceBetweenChars="...dp"
 
 	int getSpaceBetweenChars();
 	void setSpaceBetweenChars(int value);
 
 **Gets and sets hiding characters.**
 
-	custom:hideChars="..."
+	custom:hideChars="true/false"
 
 	boolean getHideChars();
 	void setHideChars(boolean value);
 
 **Gets and sets gravity (for bug fix).**
 
-	android:gravity="..."
+	android:gravity="true/false"
 
 	int getGravityFix();
 	public void setGravityFix(int value);

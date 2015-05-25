@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
         //pinEdit.setCharSize(128, 128);
         //pinEdit.setCharDrawable(getResources().getDrawable(R.drawable.you));
         //pinEdit.setTypedCharDrawable(getResources().getDrawable(R.drawable.i));
+        //pinEdit.setBackgroundColor(0xCCCCCCCC);
         //pinEdit.setSpaceBetweenChars(64);
         //pinEdit.setHideChars(true);
         //pinEdit.setGravityFix(Gravity.END | Gravity.BOTTOM);

@@ -38,10 +38,6 @@ public class PinEdit extends EditText {
     // number of PIN characters, gets from GUI editor android:maxLength, default is here
     private int maxLength = 4;
 
-    // this is workaround to fix gravity center_horizontal and end
-    // use getGravityFix() and setGravityFix() instead!
-    private int gravity = Gravity.START | Gravity.TOP;
-
     // single character's width and height
     private int charWidth = 0;
     private int charHeight = 0;
@@ -49,10 +45,15 @@ public class PinEdit extends EditText {
     private Drawable charDrawable = null;
     // a drawable background of each characters that typed
     private Drawable typedCharDrawable = null;
+    // a drawable that whole background
+    private int background = 0x00000000;
     // number of pixels that keep characters space
     private int spaceBetweenChars = 0;
     // hides characters, just use drawables
     private boolean hideChars = false;
+    // this is workaround to fix gravity center_horizontal and end
+    // use getGravityFix() and setGravityFix() instead!
+    private int gravity = Gravity.START | Gravity.TOP;
 
     // if you want to do action when user type complete
     private OnCompleteListener onCompleteListener = null;
@@ -96,7 +97,7 @@ public class PinEdit extends EditText {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
 
         // we have to set background to 0x00000000, otherwise, it will show blue line
-        setBackgroundColor(0x00000000);
+        super.setBackgroundColor(0x00000000);
 
         // sets various parameters
         setCursorVisible(false);
@@ -155,6 +156,7 @@ public class PinEdit extends EditText {
                 charHeight = array.getDimensionPixelOffset(R.styleable.PinEdit_charHeight, (int) (DEFAULT_CHAR_HEIGHT * metrics.density));
                 charDrawable = array.getDrawable(R.styleable.PinEdit_charDrawable);
                 typedCharDrawable = array.getDrawable(R.styleable.PinEdit_typedCharDrawable);
+                background = array.getColor(R.styleable.PinEdit_background, 0x00000000);
                 spaceBetweenChars = array.getDimensionPixelOffset(R.styleable.PinEdit_spaceBetweenChars, (int) (DEFAULT_SPACE_BETWEEN_CHARS * metrics.density));
                 hideChars = array.getBoolean(R.styleable.PinEdit_hideChars, false);
 
@@ -204,11 +206,7 @@ public class PinEdit extends EditText {
     public void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
 
-        Drawable background = getBackground();
-        if (background != null) {
-            background.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            background.draw(canvas);
-        }
+        canvas.drawColor(background);
 
         container.set(getPaddingLeft(), getPaddingTop(), canvas.getWidth() - getPaddingRight(), canvas.getHeight() - getPaddingBottom());
         rect.set(boundsAll);
@@ -416,6 +414,22 @@ public class PinEdit extends EditText {
      */
     public void setTypedCharDrawable(Drawable value) {
         typedCharDrawable = value;
+        preCompute();
+        invalidate();
+    }
+
+    /**
+     * Gets background color.
+     */
+    public int getBackgroundColor() {
+        return background;
+    }
+
+    /**
+     * Sets background color.
+     */
+    public void setBackgroundColor(int value) {
+        background = value;
         preCompute();
         invalidate();
     }

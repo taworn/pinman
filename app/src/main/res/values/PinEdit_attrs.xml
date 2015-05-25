@@ -5,6 +5,7 @@
         <attr name="charHeight" format="dimension"/>
         <attr name="charDrawable" format="integer"/>
         <attr name="typedCharDrawable" format="integer"/>
+        <attr name="background" format="color"/>
         <attr name="spaceBetweenChars" format="dimension"/>
         <attr name="hideChars" format="boolean"/>
     </declare-styleable>

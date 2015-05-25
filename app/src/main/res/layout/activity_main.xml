@@ -35,6 +35,9 @@
             custom:typedCharDrawable="@drawable/you"
             />
         <!--
+            custom:background="#80808080"
+            custom:hideChars="true"
+            custom:spaceBetweenChars="16dp"
             -->
 
         <TextView
