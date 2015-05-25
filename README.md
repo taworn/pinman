@@ -25,7 +25,15 @@ Usage
 
 Places PinEdit.java and PinEdit_attrs.xml in your project.  Adds layout file here:
 
-	<diy.pinman.PinEdit 		android:id="@+id/edit_pin" 		android:layout_width="match_parent" 		android:layout_height="wrap_content" 		android:gravity="center" 		android:inputType="numberPassword" 		android:textAppearance="?android:attr/textAppearanceLarge" 		custom:charDrawable="@drawable/i" 		custom:typedCharDrawable="@drawable/you"/>
+	<diy.pinman.PinEdit 		
+		android:id="@+id/edit_pin" 		
+		android:layout_width="match_parent" 		
+		android:layout_height="wrap_content" 		
+		android:gravity="center" 		
+		android:inputType="numberPassword" 		
+		android:textAppearance="?android:attr/textAppearanceLarge" 		
+		custom:charDrawable="@drawable/i" 		
+		custom:typedCharDrawable="@drawable/you"/>
 
 And in Java, adds:
 
@@ -95,6 +103,5 @@ API
 Last Word
 ---------
 
-Sorry everyone, but my English is poorly T_T.
-Thank you. :)
+Sorry everyone, but my English is poorly T_T.  Thank you. :)
 
