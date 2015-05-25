@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinEdit">
+        <attr name="charWidth" format="dimension"/>
+        <attr name="charHeight" format="dimension"/>
+        <attr name="charDrawable" format="integer"/>
+        <attr name="typedCharDrawable" format="integer"/>
+        <attr name="spaceBetweenChars" format="dimension"/>
+        <attr name="hideChars" format="boolean"/>
+    </declare-styleable>
+</resources>
