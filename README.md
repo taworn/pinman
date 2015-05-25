@@ -81,7 +81,7 @@ API
 
 **Gets and sets background color.**
 
-	custom:background="@color/..."
+	custom:backgroundColor="@color/..."
 
 	int getBackgroundColor();
 	void setBackgroundColor(int value);

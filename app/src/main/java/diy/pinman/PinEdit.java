@@ -46,7 +46,7 @@ public class PinEdit extends EditText {
     // a drawable background of each characters that typed
     private Drawable typedCharDrawable = null;
     // a drawable that whole background
-    private int background = 0x00000000;
+    private int backgroundColor = 0x00000000;
     // number of pixels that keep characters space
     private int spaceBetweenChars = 0;
     // hides characters, just use drawables
@@ -156,7 +156,7 @@ public class PinEdit extends EditText {
                 charHeight = array.getDimensionPixelOffset(R.styleable.PinEdit_charHeight, (int) (DEFAULT_CHAR_HEIGHT * metrics.density));
                 charDrawable = array.getDrawable(R.styleable.PinEdit_charDrawable);
                 typedCharDrawable = array.getDrawable(R.styleable.PinEdit_typedCharDrawable);
-                background = array.getColor(R.styleable.PinEdit_background, 0x00000000);
+                backgroundColor = array.getColor(R.styleable.PinEdit_backgroundColor, 0x00000000);
                 spaceBetweenChars = array.getDimensionPixelOffset(R.styleable.PinEdit_spaceBetweenChars, (int) (DEFAULT_SPACE_BETWEEN_CHARS * metrics.density));
                 hideChars = array.getBoolean(R.styleable.PinEdit_hideChars, false);
 
@@ -206,7 +206,7 @@ public class PinEdit extends EditText {
     public void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
 
-        canvas.drawColor(background);
+        canvas.drawColor(backgroundColor);
 
         container.set(getPaddingLeft(), getPaddingTop(), canvas.getWidth() - getPaddingRight(), canvas.getHeight() - getPaddingBottom());
         rect.set(boundsAll);
@@ -422,14 +422,14 @@ public class PinEdit extends EditText {
      * Gets background color.
      */
     public int getBackgroundColor() {
-        return background;
+        return backgroundColor;
     }
 
     /**
      * Sets background color.
      */
     public void setBackgroundColor(int value) {
-        background = value;
+        backgroundColor = value;
         preCompute();
         invalidate();
     }
